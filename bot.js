@@ -9,8 +9,8 @@ bot.start((context) => {
 bot.on('text', context => main(context))
 
 async function main(context) {
+    var flag;
     if (context.update.message["chat"]["type"] === 'group' || context.update.message["chat"]["type"] === 'supergroup') {
-        var flag;
         if (context.update.message.text.split(' ')[0] === '/anime') {
             search = context.update.message.text.replace('/anime', '');
             flag = 'anime';
@@ -20,20 +20,22 @@ async function main(context) {
         } else {
             return
         }
-
-        if (flag === 'anime') {
-            const result = await utils.getAnime(search);
-        } else if (flag === 'manga') {
-            const result = await utils.getManga(search);
-        }
-
-        if (result) {
-            context.reply(result);
-        }
     } else {
         search = context.update.message.text;
+        if (!search) {
+            return
+        }
     }
 
+    if (flag === 'anime') {
+        const result = await utils.getAnime(search);
+    } else if (flag === 'manga') {
+        const result = await utils.getManga(search);
+    }
+
+    if (result) {
+        context.reply(result);
+    }
 }
 
 bot.launch()
