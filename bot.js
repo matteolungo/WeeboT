@@ -10,21 +10,14 @@ bot.on('text', context => main(context))
 
 async function main(context) {
     var flag;
-    if (context.update.message["chat"]["type"] === 'group' || context.update.message["chat"]["type"] === 'supergroup') {
-        if (context.update.message.text.split(' ')[0] === '/anime') {
-            search = context.update.message.text.replace('/anime', '');
-            flag = 'anime';
-        } else if (context.update.message.text.split(' ')[0] === '/manga') {
-            search = context.update.message.text.replace('/manga', '')
-            flag = 'manga';
-        } else {
-            return
-        }
+    if (context.update.message.text.split(' ')[0] === '/anime') {
+        search = context.update.message.text.replace('/anime', '');
+        flag = 'anime';
+    } else if (context.update.message.text.split(' ')[0] === '/manga') {
+        search = context.update.message.text.replace('/manga', '')
+        flag = 'manga';
     } else {
-        search = context.update.message.text;
-        if (!search) {
-            return
-        }
+        return
     }
 
     var result;
@@ -35,7 +28,7 @@ async function main(context) {
     }
 
     if (result) {
-        context.reply(result);
+        context.reply(JSON.stringify(result));
     }
 }
 

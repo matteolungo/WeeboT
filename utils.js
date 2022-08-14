@@ -14,50 +14,54 @@ function getToken() {
 };
 
 async function getAnime(query) {
-    var token = await getToken();
-    axios.get("https://api.myanimelist.net/v2/anime", {
-        headers: {
-            Authorization: 'Bearer ' + token.access_token
-        },
-        params: {
-            q: query,
-            limit: 1
-        }
-    }).catch(e => console.log(e)).then(response => {
-        result = response.data.data[0].node;
-        axios.get("https://api.myanimelist.net/v2/anime/" + result.id, {
+    return new Promise(async (resolve, reject) => {
+        var token = await getToken();
+        axios.get("https://api.myanimelist.net/v2/anime", {
             headers: {
                 Authorization: 'Bearer ' + token.access_token
             },
             params: {
-                fields: 'id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_episodes,start_season,broadcast,source,average_episode_duration,rating,pictures,background,related_anime,related_manga,recommendations,studios,statistics'
+                q: query,
+                limit: 1
             }
-        }).catch(e => console.log(e)).then(response => console.log(response.data))
-    });
+        }).catch(e => console.log(e)).then(response => {
+            result = response.data.data[0].node;
+            axios.get("https://api.myanimelist.net/v2/anime/" + result.id, {
+                headers: {
+                    Authorization: 'Bearer ' + token.access_token
+                },
+                params: {
+                    fields: 'id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_episodes,start_season,broadcast,source,average_episode_duration,rating,pictures,background,related_anime,related_manga,recommendations,studios,statistics'
+                }
+            }).catch(e => console.log(e)).then(response => resolve(response.data))
+        });
+    })
 };
 
 async function getManga(query) {
-    var token = await getToken();
-    axios.get("https://api.myanimelist.net/v2/manga", {
-        headers: {
-            Authorization: 'Bearer ' + token.access_token
-        },
-        params: {
-            q: query,
-            limit: 1
-        }
-    }).catch(e => console.log(e)).then(response => {
-        result = response.data.data[0].node;
-        axios.get("https://api.myanimelist.net/v2/manga/" + result.id, {
+    return new Promise(async (resolve, reject) => {
+        var token = await getToken();
+        axios.get("https://api.myanimelist.net/v2/manga", {
             headers: {
                 Authorization: 'Bearer ' + token.access_token
             },
             params: {
-                fields: 'id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_volumes,num_chapters,authors{first_name,last_name},pictures,background,related_anime,related_manga,recommendations,serialization{name}'
+                q: query,
+                limit: 1
             }
-        }).catch(e => console.log(e)).then(response => console.log(response.data))
-    });
+        }).catch(e => console.log(e)).then(response => {
+            result = response.data.data[0].node;
+            axios.get("https://api.myanimelist.net/v2/manga/" + result.id, {
+                headers: {
+                    Authorization: 'Bearer ' + token.access_token
+                },
+                params: {
+                    fields: 'id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_volumes,num_chapters,authors{first_name,last_name},pictures,background,related_anime,related_manga,recommendations,serialization{name}'
+                }
+            }).catch(e => console.log(e)).then(response => resolve(response.data))
+        });
+    })
 }
 
-module.exports = {getAnime, getManga};
+module.exports = { getAnime, getManga };
 
