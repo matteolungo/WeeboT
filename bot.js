@@ -1,5 +1,5 @@
 const { Telegraf } = require('telegraf');
-const bot = new Telegraf('');
+const bot = new Telegraf('5731190548:AAHWWNeyKz67muLQ53WcD8GkGu5FashgJ9U');
 const utils = require('./utils.js')
 
 bot.start((context) => {
