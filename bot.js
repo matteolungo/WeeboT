@@ -27,10 +27,11 @@ async function main(context) {
         }
     }
 
+    var result;
     if (flag === 'anime') {
-        const result = await utils.getAnime(search);
+        result = await utils.getAnime(search);
     } else if (flag === 'manga') {
-        const result = await utils.getManga(search);
+        result = await utils.getManga(search);
     }
 
     if (result) {
