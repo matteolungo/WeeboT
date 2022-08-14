@@ -3,7 +3,7 @@ const bot = new Telegraf('5731190548:AAHWWNeyKz67muLQ53WcD8GkGu5FashgJ9U');
 const utils = require('./utils.js')
 
 bot.start((context) => {
-    context.reply("Benvenuto su WeeboT, usa i comandi /anime o /manga seguiti dal titolo dell'opera per avere vederne i dettagli")
+    context.reply("Benvenuto su WeeboT, usa i comandi /anime o /manga seguiti dal titolo dell'opera per conoscerne i dettagli")
 })
 
 bot.on('text', context => main(context))
