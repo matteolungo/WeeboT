@@ -25,7 +25,12 @@ async function getAnime(query) {
                 limit: 1
             }
         }).catch(e => console.log(e)).then(response => {
-            result = response.data.data[0].node;
+            if (response.data.data.length > 0)
+                result = response.data.data[0].node
+            else {
+                result = null;
+                resolve(result);
+            }
             axios.get("https://api.myanimelist.net/v2/anime/" + result.id, {
                 headers: {
                     Authorization: 'Bearer ' + token.access_token
@@ -34,7 +39,7 @@ async function getAnime(query) {
                     fields: 'id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_episodes,start_season,broadcast,source,average_episode_duration,rating,pictures,background,related_anime,related_manga,recommendations,studios,statistics'
                 }
             }).catch(e => console.log(e)).then(response => resolve(response.data))
-        });
+        }).catch(e => console.log(e));
     })
 };
 
@@ -50,7 +55,12 @@ async function getManga(query) {
                 limit: 1
             }
         }).catch(e => console.log(e)).then(response => {
-            result = response.data.data[0].node;
+            if (response.data.data.length > 0)
+                result = response.data.data[0].node
+            else {
+                result = null;
+                resolve(result);
+            }
             axios.get("https://api.myanimelist.net/v2/manga/" + result.id, {
                 headers: {
                     Authorization: 'Bearer ' + token.access_token
@@ -59,7 +69,7 @@ async function getManga(query) {
                     fields: 'id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_volumes,num_chapters,authors{first_name,last_name},pictures,background,related_anime,related_manga,recommendations,serialization{name}'
                 }
             }).catch(e => console.log(e)).then(response => resolve(response.data))
-        });
+        }).catch(e => console.log(e));
     })
 }
 
