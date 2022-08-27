@@ -4,7 +4,8 @@ const utils = require('./utils.js')
 const translate = require('translate-google')
 
 bot.start((context) => {
-    context.reply("Benvenuto su WeeboT, usa i comandi /anime o /manga seguiti dal titolo dell'opera per conoscerne i dettagli")
+    context.reply("Benvenuto su WeeboT, usa i comandi /anime o /manga seguiti dal titolo dell'opera per conoscerne i dettagli");
+    console.log("/Start")
 })
 
 bot.on('text', context => main(context))
@@ -90,4 +91,5 @@ function formatDate(inputDate) {
     }
 }
 
-bot.launch()
+bot.launch().catch(e=>console.log(e));
+console.log("started");
