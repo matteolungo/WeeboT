@@ -4,8 +4,7 @@ const utils = require('./utils.js')
 const translate = require('translate-google')
 
 bot.start((context) => {
-    context.reply("Benvenuto su WeeboT, usa i comandi /anime o /manga seguiti dal titolo dell'opera per conoscerne i dettagli");
-    return;
+    context.reply("Benvenuto su WeeboT, usa i comandi /anime o /manga seguiti dal titolo dell'opera per conoscerne i dettagli")
 })
 
 bot.on('text', context => main(context))
@@ -55,7 +54,6 @@ async function main(context) {
                 context.reply(synopsis.substring(0, 500) + '[...]');
             }
         });
-        return;
     } else if (flag === 'manga') {
         result = await utils.getManga(search);
         var pic_url = result.main_picture.large;
@@ -80,10 +78,8 @@ async function main(context) {
                 context.reply(synopsis.substring(0, 500) + '[...]');
             }
         });
-        return;
     } else {
         context.reply('Nessun risultato trovato.');
-        return;
     }
 }
 
